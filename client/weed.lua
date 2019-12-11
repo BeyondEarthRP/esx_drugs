@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('weed_processprompt'))
 			end
 
-			if IsControlJustReleased(0, 38) and not isProcessing then
+			if IsControlJustReleased(0, 46) and not isProcessing then   --This was 38 ( Made it work with a Gamepad - Jay <3 )
 				if Config.LicenseEnable then
 					ESX.TriggerServerCallback('esx_license:checkLicense', function(hasProcessingLicense)
 						if hasProcessingLicense then
@@ -84,7 +84,7 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('weed_pickupprompt'))
 			end
 
-			if IsControlJustReleased(0, 38) and not isPickingUp then
+			if IsControlJustReleased(0, 46) and not isPickingUp then  --This was 38 ( Made it work with a Gamepad - Jay <3 )
 				isPickingUp = true
 
 				ESX.TriggerServerCallback('esx_drugs:canPickUp', function(canPickUp)
@@ -94,12 +94,12 @@ Citizen.CreateThread(function()
 						Citizen.Wait(2000)
 						ClearPedTasks(playerPed)
 						Citizen.Wait(1500)
-		
+
 						ESX.Game.DeleteObject(nearbyObject)
-		
+
 						table.remove(weedPlants, nearbyID)
 						spawnedWeeds = spawnedWeeds - 1
-		
+
 						TriggerServerEvent('esx_drugs:pickedUpCannabis')
 					else
 						ESX.ShowNotification(_U('weed_inventoryfull'))
@@ -123,11 +123,20 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnWeedPlants()
-	while spawnedWeeds < 25 do
+	while spawnedWeeds < 50 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateWeedCoords()
 
-		ESX.Game.SpawnLocalObject('prop_weed_02', weedCoords, function(obj)
+		-- added by Jay to offer some randomness to the generation of the plants
+		local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
+		local keyset
+		for k in pairs(prop_weed_table) do
+        table.insert(keyset, k)
+    end
+
+    prop_weed = prop_weed_table[keyset[math.random(#keyset)]]
+
+		ESX.Game.SpawnLocalObject(prop_weed, weedCoords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
 
@@ -169,7 +178,7 @@ function GenerateWeedCoords()
 		Citizen.Wait(100)
 
 		math.randomseed(GetGameTimer())
-		local modY = math.random(-3, 3)
+		local modY = math.random(-2, 2)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
