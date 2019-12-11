@@ -129,7 +129,7 @@ function SpawnWeedPlants()
 
 		-- added by Jay to offer some randomness to the generation of the plants
 		local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
-		local keyset
+		local keyset = {}
 		for k in pairs(prop_weed_table) do
         table.insert(keyset, k)
     end
