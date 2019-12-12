@@ -201,6 +201,7 @@ function ValidateWeedCoord(plantCoord)
 			validate = false
 		end
 
+		print("validation: " .. validate)
 		return validate
 	else
 		return true
@@ -209,17 +210,17 @@ end
 
 function GenerateWeedCoords()
 	while true do
-		Citizen.Wait(1)
+		Citizen.Wait(5)
 
 		local weedCoordX, weedCoordY
 
 		math.randomseed(GetGameTimer())
-		local modX = math.random(-8, 8)
+		local modX = math.random(-10, 10)
 
 		Citizen.Wait(100)
 
 		math.randomseed(GetGameTimer())
-		local modY = math.random(-2, 2)
+		local modY = math.random(-3, 3)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
@@ -243,8 +244,12 @@ function GetCoordZ(x, y)
 	local x = 52
 	local xx = 0
 	while x < 55 do
+		  Citizen.Wait(0)
 			while xx < 100 do
-					table.insert(groundCheckHeights, tonumber(x .. "." .. xx))
+				  Citizen.Wait(0)
+				  heightValue = tonumber(x .. "." .. xx)
+					print("heightValue: " .. heightValue)
+					table.insert(groundCheckHeights, heightValue)
 					xx = xx + 1
 		  end
 		  x = x + 1
@@ -258,5 +263,5 @@ function GetCoordZ(x, y)
 		end
 	end
 
-	return 43.0
+	return 52.0
 end
