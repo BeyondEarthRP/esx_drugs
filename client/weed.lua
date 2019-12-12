@@ -170,11 +170,11 @@ function SpawnWeedPlants()
     end]]--
 
 		while spawnedWeeds < 18 do
-			  print("spawnedWeeds: " .. spawnedWeeds .. "/18")
+			  --print("spawnedWeeds: " .. spawnedWeeds .. "/18")
 				Citizen.Wait(0)
 				--if next(keyset) == nil then
 				weedCoords = GenerateWeedCoords()
-				print("trying these coords: " .. weedCoords)
+				--print("trying these coords: " .. weedCoords)
 				--[[    print("Table was nil, generating new cords.")
 				else
 	    			weedCoords = weedplotCoords[keyset[math.random(#keyset)] ]
@@ -188,7 +188,7 @@ function SpawnWeedPlants()
 	  			  table.insert(weedPlants, obj)
 				    spawnedWeeds = spawnedWeeds + 1
 	  		end)
-				print("plant spawned.")
+				--print("plant spawned.")
 		end
 end
 
@@ -206,7 +206,7 @@ function ValidateWeedCoord(plantCoord)
 			validate = false
 		end
 
-    print("validation: " .. tostring(validate))
+    --print("validation: " .. tostring(validate))
 		return validate
 	else
 		return true
@@ -216,26 +216,26 @@ end
 function GenerateWeedCoords()
 	while true do
 		Citizen.Wait(5)
-    print("generating coords")
+    --print("generating coords")
 		local weedCoordX, weedCoordY
 
 		math.randomseed(GetGameTimer())
 		local modX = math.random(-10, 10)
-    print("Generated modX: " .. modX .. " -- sleeping 100")
+    --print("Generated modX: " .. modX .. " -- sleeping 100")
 
 		Citizen.Wait(100)
 		math.randomseed(GetGameTimer())
 		local modY = math.random(-2, 2)
-		print("Generated modY: " .. modY)
+		--print("Generated modY: " .. modY)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
 
 		if weedCoordY == 5576 then
-			  print("modY is 5576... fixing.")
+			  --print("modY is 5576... fixing.")
 			  local x = 0
 			  while true do
-					  print("x is: " .. x)
+					  --print("x is: " .. x)
 						math.randomseed(GetGameTimer())
 				    Citizen.Wait(5)
 					  x = math.random(-1, 3)
@@ -248,12 +248,12 @@ function GenerateWeedCoords()
 						end
 			  end
 				weedCoordY = weedCoordY + x
-				print("shifting plant " .. x)
+				--print("shifting plant " .. x)
 	  elseif weedCoordY == 5578 then
-			  print("modY is 5578... fixing.")
+			  --print("modY is 5578... fixing.")
 		    local x = 0
 		    while true do
-					  print("x is: " .. x)
+					  --print("x is: " .. x)
 						math.randomseed(GetGameTimer())
     				Citizen.Wait(5)
 				    x = math.random(-3, 1)
@@ -266,7 +266,7 @@ function GenerateWeedCoords()
 						end
 		    end
 				weedCoordY = weedCoordY + x
-				print("shifting plant " .. x)
+				--print("shifting plant " .. x)
 	  end
 
 
@@ -275,20 +275,20 @@ function GenerateWeedCoords()
 
 		--2225 x 5577 x
 
-		print("getting coordZ.")
+		--print("getting coordZ.")
 		local coordZ = GetCoordZ(weedCoordX, weedCoordY)
 		local coord = vector3(weedCoordX, weedCoordY, coordZ)
 
-		print("validating...")
+		--print("validating...")
 		if ValidateWeedCoord(coord) then
-			print("returning " .. coord)
+			--print("returning " .. coord)
 			return coord
 		end
 	end
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.77, 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
+	local groundCheckHeights = { 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
@@ -297,5 +297,5 @@ function GetCoordZ(x, y)
 		end
 	end
 
-	return 53.7
+	return 53.8
 end
