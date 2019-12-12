@@ -136,7 +136,7 @@ function SpawnWeedPlants()
 
     prop_weed = prop_weed_table[keyset[math.random(#keyset)]]
 
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey(), 0, 0, 0)
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey(prop_weed), 0, 0, 0)
 		local MyWeedCords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
     print("reporting...")
 		print(MyWeedCords)
