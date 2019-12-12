@@ -123,7 +123,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnWeedPlants()
-	while spawnedWeeds < 50 do
+	while spawnedWeeds < 25 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateWeedCoords()
 
@@ -135,6 +135,11 @@ function SpawnWeedPlants()
     end
 
     prop_weed = prop_weed_table[keyset[math.random(#keyset)]]
+
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey(), 0, 0, 0)
+		local MyWeedCords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+    print("reporting...")
+		print(MyWeedCords)
 
 		ESX.Game.SpawnLocalObject(prop_weed, weedCoords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
