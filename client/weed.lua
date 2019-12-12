@@ -214,12 +214,12 @@ function GenerateWeedCoords()
 		local weedCoordX, weedCoordY
 
 		math.randomseed(GetGameTimer())
-		local modX = math.random(-10, 10)
+		local modX = math.random(-8, 8)
 
 		Citizen.Wait(100)
 
 		math.randomseed(GetGameTimer())
-		local modY = math.random(-4, 4)
+		local modY = math.random(-2, 2)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
@@ -228,7 +228,6 @@ function GenerateWeedCoords()
 		--5574 .. 5580 = 6 = 3x2
 
 		--2225 x 5577 x
-
 
 		local coordZ = GetCoordZ(weedCoordX, weedCoordY)
 		local coord = vector3(weedCoordX, weedCoordY, coordZ)
@@ -240,7 +239,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.70, 53.71, 53.72, 53.73, 53.74, 53.75, 53.76, 53.77, 53.78, 53.79, 53.80, 53.81, 53.82, 53.83, 53.84, 53.85, 53.86, 53.87, 53.88, 53.89, 53.90, 53.91, 53.92, 53.93, 53.94, 53.95, 53.96, 53.97, 53.98, 53.99, 54.00, 54.01, 54.02, 54.03, 54.04, 54.05 }
+	local groundCheckHeights = { 52.68, 52.69, 52.70, 52.71, 52.72, 52.73, 52.74, 52.75, 52.76, 52.77, 52.78, 52.79, 52.80, 52.81, 52.82, 52.83, 52.84, 52.85, 52.86, 52.87, 52.88, 52.89, 52.90, 52.91, 52.92, 52.93, 52.94, 52.95, 52.96, 52.97, 52.98, 52.99, 53.00, 53.01, 53.02, 53.03, 53.04, 53.05 }
 
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
