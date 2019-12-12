@@ -183,7 +183,7 @@ function SpawnWeedPlants()
 				    SetEntityAsMissionEntity(obj, true, true)
 	  			  table.insert(weedPlants, obj)
 				    spawnedWeeds = spawnedWeeds + 1
-	  		ends)
+	  		end)
 		end
 end
 
