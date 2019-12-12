@@ -288,7 +288,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
+	local groundCheckHeights = { 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
