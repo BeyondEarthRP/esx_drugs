@@ -201,7 +201,6 @@ function ValidateWeedCoord(plantCoord)
 			validate = false
 		end
 
-		print("validation: " .. tostring(validate))
 		return validate
 	else
 		return true
@@ -240,7 +239,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.7, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3, 54.4, 54.5}
+	local groundCheckHeights = { 53.77, 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
@@ -249,5 +248,5 @@ function GetCoordZ(x, y)
 		end
 	end
 
-	return 53.7
+	return 53.8
 end
