@@ -197,7 +197,7 @@ function ValidateWeedCoord(plantCoord)
 		local validate = true
 
 		for k, v in pairs(weedPlants) do
-			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 3 then
+			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 2 then
 				validate = false
 			end
 		end
