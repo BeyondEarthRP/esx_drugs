@@ -139,24 +139,29 @@ function SpawnWeedPlants()
 		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		while ClosestWeed ~= nil do
 			  Citizen.Wait(0)
+				local smallWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+				SetEntityAsMissionEntity(ClosestWeed, true, true)
 				ClosestWeed = DeleteEntity()
-				print("Deleted 01 at: " .. ClosestWeed)
+				print("Deleted 02 at: " .. smallWeedCords)
 				local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
-		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		local newWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 		print("reporting...")
 		if ClosestWeed ~= nil then
+			SetEntityAsMissionEntity(ClosestWeed, true, true)
 			ClosestWeed = DeleteEntity()
 			weedCoords = newWeedCoords
-			print("Deleted 02 at: " .. newWeedCoords)
+			print("Replacing 01 at: " .. weedCoords)
+	  else
+			print("New plant added at: " .. weedCoords)
 		end
 
 
 		ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
-
+			SetEntityAsMissionEntity(obj, true, true)
 			table.insert(weedPlants, obj)
 			spawnedWeeds = spawnedWeeds + 1
 		end)
