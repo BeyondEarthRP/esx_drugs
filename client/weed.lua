@@ -241,7 +241,7 @@ function GenerateWeedCoords()
 					  x = math.random(-1, 3)
 						if x == 1 then
 								break
-						elseif x == -1 then
+						elseif x == -2 then
 								break
 						elseif x == 3 then
 								break
