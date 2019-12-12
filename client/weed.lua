@@ -123,52 +123,61 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnWeedPlants()
-	while spawnedWeeds < 25 do
-		Citizen.Wait(0)
-		local weedCoords = GenerateWeedCoords()
 
 		-- added by Jay to offer some randomness to the generation of the plants
-		--[[local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		local nilCoords = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('nothingObject'), 0, 0, 0)
+		local oldWeedCoords, newWeedCoords
+		local weedplotCoords = {}
+		print ("Closest weed: " .. ClosestWeed)
+		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil do
+		    if not IsEntityAMissionEntity(ClosestWeed) then
+						oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+						table.insert(weedplotCoords, oldWeedCoords)
+						print("INSERTED: " .. oldWeedCoords)
+						SetEntityAsMissionEntity(ClosestWeed, true, true)
+						ESX.Game.DeleteObject(ClosestWeed)
+						print("Deleted 02 at: " .. oldWeedCoords)
+			  end
+
+		  	Citizen.Wait(0)
+				local weedCoords = GenerateWeedCoords()
+		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		end
+		ClosestWeed = nil
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil  do
+			  if not IsEntityAMissionEntity(ClosestWeed) then
+						oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+						table.insert(weedplotCoords, oldWeedCoords)
+						print("INSERTED: " .. oldWeedCoords)
+						SetEntityAsMissionEntity(ClosestWeed, true, true)
+						ESX.Game.DeleteObject(ClosestWeed)
+						print("Deleted 02 at: " .. oldWeedCoords)
+			  end
+				Citizen.Wait(0)
+				local weedCoords = GenerateWeedCoords()
+				ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		end
+		ClosestWeed = nil
+		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
 		local keyset = {}
-		for k in pairs(prop_weed_table) do
+		for k in pairs(plotCoords) do
         table.insert(keyset, k)
     end
 
-    prop_weed = prop_weed_table[keyset[math.random(#keyset)] ]
-		]]--
-		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
-		local nilCoords = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('nothingObject'), 0, 0, 0)
-		local smallWeedCoords, newWeedCoords
-		print ("Closest weed: " .. ClosestWeed)
-		while ClosestWeed ~= nilCoords do
-				smallWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
-				SetEntityAsMissionEntity(ClosestWeed, true, true)
-				ESX.Game.DeleteObject(ClosestWeed)
-				print("Deleted 02 at: " .. smallWeedCoords)
-		  	Citizen.Wait(0)
-		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		while spawnedWeeds < 25 do
+				Citizen.Wait(0)
+	    	weedCoords = weedplotCoords[keyset[math.random(#keyset)]]
+				print("generating plant #" .. spawnedWeeds .. " at " .. weedCoords)
+			  ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
+	  			  PlaceObjectOnGroundProperly(obj)
+				    FreezeEntityPosition(obj, true)
+				    --SetEntityAsMissionEntity(obj, true, true)
+	  			  table.insert(weedPlants, obj)
+				    spawnedWeeds = spawnedWeeds + 1
+	  		end)
 		end
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 1, 0, 0)
-		newWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
-		print("reporting...")
-		if ClosestWeed ~= nil then
-			SetEntityAsMissionEntity(ClosestWeed, true, true)
-			ESX.Game.DeleteObject(ClosestWeed)
-			weedCoords = newWeedCoords
-			print("Replacing 01 at: " .. weedCoords)
-	  else
-			print("New plant added at: " .. weedCoords)
-		end
-
-
-		ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-			SetEntityAsMissionEntity(obj, true, true)
-			table.insert(weedPlants, obj)
-			spawnedWeeds = spawnedWeeds + 1
-		end)
-	end
 end
 
 function ValidateWeedCoord(plantCoord)
