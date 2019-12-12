@@ -126,7 +126,7 @@ function SpawnWeedPlants()
 
 		-- altered quite a bit by Jay to make the plants grow in the plots within the outdoor weed farm
 		local weedCoords = GenerateWeedCoords()
-		local ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		local nilCoords = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('nothingObject'), 0, 0, 0)
 		local oldWeedCoords --, newWeedCoords
 		local weedplotCoords = {}
@@ -147,7 +147,7 @@ function SpawnWeedPlants()
 		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
 		ClosestWeed = nil
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil  do
 			  print("deleting 01 plants.")
 			  --if not IsEntityAMissionEntity(ClosestWeed) then
@@ -160,7 +160,7 @@ function SpawnWeedPlants()
 			  --end
 				Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		end
 		ClosestWeed = nil
 		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
@@ -184,7 +184,7 @@ function SpawnWeedPlants()
 			  ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 	  			  PlaceObjectOnGroundProperly(obj)
 				    FreezeEntityPosition(obj, true)
-				    --SetEntityAsMissionEntity(obj, true, true)
+				    SetEntityAsMissionEntity(obj, true, true)
 	  			  table.insert(weedPlants, obj)
 				    spawnedWeeds = spawnedWeeds + 1
 	  		end)
