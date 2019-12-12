@@ -137,11 +137,11 @@ function SpawnWeedPlants()
     prop_weed = prop_weed_table[keyset[math.random(#keyset)]]
 
 		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey(prop_weed), 0, 0, 0)
-		local MyWeedCords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+		local MyWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
     print("reporting...")
-		print(MyWeedCords)
+		print(MyWeedCoords)
 
-		ESX.Game.SpawnLocalObject(prop_weed, weedCoords, function(obj)
+		ESX.Game.SpawnLocalObject('prop_weed_01', MyWeedCoords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
 
