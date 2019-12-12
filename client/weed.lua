@@ -128,20 +128,31 @@ function SpawnWeedPlants()
 		local weedCoords = GenerateWeedCoords()
 
 		-- added by Jay to offer some randomness to the generation of the plants
-		local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
+		--[[local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
 		local keyset = {}
 		for k in pairs(prop_weed_table) do
         table.insert(keyset, k)
     end
 
-    prop_weed = prop_weed_table[keyset[math.random(#keyset)]]
+    prop_weed = prop_weed_table[keyset[math.random(#keyset)] ]
+		]]--
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		while ClosestWeed ~= nil do
+				ClosestWeed = DeleteEntity()
+				print("Deleted 01 at: " .. ClosestWeed)
+				local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		end
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		local newWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+		print("reporting...")
+		if ClosestWeed ~= nil then
+			ClosestWeed = DeleteEntity()
+			weedCoords = newWeedCoords
+			print("Deleted 02 at: " .. newWeedCoords)
+		end
 
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey(prop_weed), 0, 0, 0)
-		local MyWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
-    print("reporting...")
-		print(MyWeedCoords)
 
-		ESX.Game.SpawnLocalObject('prop_weed_01', MyWeedCoords, function(obj)
+		ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
 
