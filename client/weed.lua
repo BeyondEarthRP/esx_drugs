@@ -126,64 +126,64 @@ function SpawnWeedPlants()
 
 		-- altered quite a bit by Jay to make the plants grow in the plots within the outdoor weed farm
 		local weedCoords = GenerateWeedCoords()
-		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
-		local nilCoords = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('nothingObject'), 0, 0, 0)
-		local oldWeedCoords, newWeedCoords
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
+		local nilCoords = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('nothingObject'), 0, 0, 0)
+		local oldWeedCoords --, newWeedCoords
 		local weedplotCoords = {}
 		print ("Closest weed: " .. ClosestWeed)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil do
-		    if not IsEntityAMissionEntity(ClosestWeed) then
-						oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
-						table.insert(weedplotCoords, oldWeedCoords)
-						print("INSERTED: " .. oldWeedCoords)
+		    --if not IsEntityAMissionEntity(ClosestWeed) then
+					  oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+						--table.insert(weedplotCoords, oldWeedCoords)
+						--print("INSERTED: " .. oldWeedCoords)
 						SetEntityAsMissionEntity(ClosestWeed, true, true)
 						ESX.Game.DeleteObject(ClosestWeed)
 						print("Deleted 02 at: " .. oldWeedCoords)
-			  end
+			  --end
 
 		  	Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
 		end
 		ClosestWeed = nil
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil  do
-			  if not IsEntityAMissionEntity(ClosestWeed) then
-						oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
-						table.insert(weedplotCoords, oldWeedCoords)
-						print("INSERTED: " .. oldWeedCoords)
+			  --if not IsEntityAMissionEntity(ClosestWeed) then
+					  oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
+						--table.insert(weedplotCoords, oldWeedCoords)
+						--print("INSERTED: " .. oldWeedCoords)
 						SetEntityAsMissionEntity(ClosestWeed, true, true)
 						ESX.Game.DeleteObject(ClosestWeed)
-						print("Deleted 02 at: " .. oldWeedCoords)
-			  end
+						print("Deleted 01 at: " .. oldWeedCoords)
+			  --end
 				Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-				ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
+				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		end
 		ClosestWeed = nil
 		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
-		local keyset = {}
+		--[[local keyset = {}
 		for k in pairs(weedplotCoords) do
         table.insert(keyset, k)
-    end
+    end]]--
 
 		while spawnedWeeds < 25 do
 				Citizen.Wait(0)
-				if next(keyset) == nil then
-						weedCoords = GenerateWeedCoords()
-						print("Table was nil, generating new cords.")
+				--if next(keyset) == nil then
+				weedCoords = GenerateWeedCoords()
+				--[[    print("Table was nil, generating new cords.")
 				else
-	    			weedCoords = weedplotCoords[keyset[math.random(#keyset)]]
+	    			weedCoords = weedplotCoords[keyset[math.random(#keyset)] ]
 						print("Using weedplots to obtain coords for next weed plant.")
-				end
+				end]]--
 				print("generating plant #" .. spawnedWeeds .. " at " .. weedCoords)
 			  ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 	  			  PlaceObjectOnGroundProperly(obj)
 				    FreezeEntityPosition(obj, true)
-				    --SetEntityAsMissionEntity(obj, true, true)
+				    SetEntityAsMissionEntity(obj, true, true)
 	  			  table.insert(weedPlants, obj)
 				    spawnedWeeds = spawnedWeeds + 1
-	  		end)
+	  		ends)
 		end
 end
 
