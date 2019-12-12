@@ -162,7 +162,7 @@ function SpawnWeedPlants()
 		ClosestWeed = nil
 		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
 		local keyset = {}
-		for k in pairs(plotCoords) do
+		for k in pairs(weedplotCoords) do
         table.insert(keyset, k)
     end
 
