@@ -234,22 +234,36 @@ function GenerateWeedCoords()
 		if weedCoordY == 5576 then
 			  print("modY is 5576... fixing.")
 			  local x = 0
-			  while x ~= -1 or x ~= 1 or x ~= 3 do
+			  while true do
 					  print("x is: " .. x)
 						math.randomseed(GetGameTimer())
 				    Citizen.Wait(5)
 					  x = math.random(-1, 3)
+						if x == 1 then
+								break
+						elseif x == -1 then
+								break
+						elseif x == 3 then
+								break
+						end
 			  end
 				weedCoordY = weedCoordY + x
 				print("shifting plant " .. x)
 	  elseif weedCoordY == 5578 then
 			  print("modY is 5578... fixing.")
 		    local x = 0
-		    while x ~= 1 or x ~= -1 or x ~= -3 do
+		    while true do
 					  print("x is: " .. x)
 						math.randomseed(GetGameTimer())
     				Citizen.Wait(5)
 				    x = math.random(-3, 1)
+						if x == 1 then
+							  break
+					  elseif x == -1 then
+							  break
+					  elseif x == -3 then
+							  break
+						end
 		    end
 				weedCoordY = weedCoordY + x
 				print("shifting plant " .. x)
