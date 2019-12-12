@@ -192,12 +192,14 @@ function ValidateWeedCoord(plantCoord)
 		local validate = true
 
 		for k, v in pairs(weedPlants) do
-			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 5 then
+			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 2 then
 				validate = false
+				print("failed validation: too close to other plants")
 			end
 		end
 
-		if GetDistanceBetweenCoords(plantCoord, Config.CircleZones.WeedField.coords, false) > 50 then
+		if GetDistanceBetweenCoords(plantCoord, Config.CircleZones.WeedField.coords, false) > 100 then  --this was 50.  I'm actually not sure what it does.
+			print("failed validation: too far outside of zone")
 			validate = false
 		end
 
@@ -210,7 +212,7 @@ end
 
 function GenerateWeedCoords()
 	while true do
-		Citizen.Wait(5)
+		Citizen.Wait(1)
 
 		local weedCoordX, weedCoordY
 
@@ -220,7 +222,7 @@ function GenerateWeedCoords()
 		Citizen.Wait(100)
 
 		math.randomseed(GetGameTimer())
-		local modY = math.random(-3, 3)
+		local modY = math.random(-2, 2)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
@@ -249,5 +251,5 @@ function GetCoordZ(x, y)
 		end
 	end
 
-	return 52.0
+	return 52.3
 end
