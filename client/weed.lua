@@ -138,14 +138,14 @@ function SpawnWeedPlants()
 		]]--
 		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		print ("Closest weed: " .. ClosestWeed)
-		while ClosestWeed ~= nil do
+		--while ClosestWeed ~= nil do
 				local smallWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 				SetEntityAsMissionEntity(ClosestWeed, true, true)
 				ClosestWeed = DeleteEntity()
 				print("Deleted 02 at: " .. smallWeedCoords)
-				Citizen.Wait(0)
-				local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
-		end
+		--		Citizen.Wait(0)
+		--		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
+		--end
 		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 1, 0, 0)
 		local newWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 		print("reporting...")
