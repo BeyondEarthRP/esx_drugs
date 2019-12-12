@@ -231,8 +231,7 @@ function GenerateWeedCoords()
 					  x = math.random(-1, 3)
 			  end
 				weedCoordY = weedCoordY + x
-		end
-		if weedCoordY == 5578
+	  elseif weedCoordY == 5578 then
 		    local x = 0
 		    while x ~= 1 or x ~= -1 or x ~= -3 do
 						math.randomseed(GetGameTimer())
