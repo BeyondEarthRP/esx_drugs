@@ -240,19 +240,22 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = {}
 	local x = 52
 	local xx = 0
-	while x < 55 do
-		  Citizen.Wait(0)
-			while xx < 100 do
+	if not groundCheckHeights then
+			local groundCheckHeights = {}
+			while x < 55 do
 				  Citizen.Wait(0)
-				  heightValue = tonumber(x .. "." .. xx)
-					print("heightValue: " .. heightValue)
-					table.insert(groundCheckHeights, heightValue)
-					xx = xx + 1
-		  end
-		  x = x + 1
+					xx = 0
+					while xx < 10 do
+						  Citizen.Wait(0)
+						  heightValue = tonumber(x .. "." .. xx)
+							print("heightValue: " .. heightValue)
+							table.insert(groundCheckHeights, heightValue)
+							xx = xx + 1
+				  end
+				  x = x + 1
+			end
 	end
 
 	for i, height in ipairs(groundCheckHeights) do
