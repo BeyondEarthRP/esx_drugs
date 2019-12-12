@@ -132,6 +132,7 @@ function SpawnWeedPlants()
 		local weedplotCoords = {}
 		print ("Closest weed: " .. ClosestWeed)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil do
+			  print("deleting 02 plants.")
 		    --if not IsEntityAMissionEntity(ClosestWeed) then
 					  oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 						--table.insert(weedplotCoords, oldWeedCoords)
@@ -143,11 +144,12 @@ function SpawnWeedPlants()
 
 		  	Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
+		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
 		ClosestWeed = nil
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil  do
+			  print("deleting 01 plants.")
 			  --if not IsEntityAMissionEntity(ClosestWeed) then
 					  oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 						--table.insert(weedplotCoords, oldWeedCoords)
@@ -158,7 +160,7 @@ function SpawnWeedPlants()
 			  --end
 				Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
+				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
 		end
 		ClosestWeed = nil
 		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
@@ -167,10 +169,12 @@ function SpawnWeedPlants()
         table.insert(keyset, k)
     end]]--
 
-		while spawnedWeeds < 25 do
+		while spawnedWeeds < 18 do
+			  print("spawnedWeeds: " .. spawnedWeeds .. "/18")
 				Citizen.Wait(0)
 				--if next(keyset) == nil then
 				weedCoords = GenerateWeedCoords()
+				print("trying these coords: " .. weedCoords)
 				--[[    print("Table was nil, generating new cords.")
 				else
 	    			weedCoords = weedplotCoords[keyset[math.random(#keyset)] ]
@@ -180,10 +184,11 @@ function SpawnWeedPlants()
 			  ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 	  			  PlaceObjectOnGroundProperly(obj)
 				    FreezeEntityPosition(obj, true)
-				    SetEntityAsMissionEntity(obj, true, true)
+				    --SetEntityAsMissionEntity(obj, true, true)
 	  			  table.insert(weedPlants, obj)
 				    spawnedWeeds = spawnedWeeds + 1
 	  		end)
+				print("plant spawned.")
 		end
 end
 
@@ -211,7 +216,7 @@ end
 function GenerateWeedCoords()
 	while true do
 		Citizen.Wait(5)
-
+    print("generating coords")
 		local weedCoordX, weedCoordY
 
 		math.randomseed(GetGameTimer())
@@ -228,7 +233,7 @@ function GenerateWeedCoords()
 			  local x = 0
 			  while x ~= -1 or x ~= 1 or x ~= 3 do
 						math.randomseed(GetGameTimer())
-				    Citizen.Wait(0)
+				    Citizen.Wait(5)
 					  x = math.random(-1, 3)
 			  end
 				weedCoordY = weedCoordY + x
@@ -237,7 +242,7 @@ function GenerateWeedCoords()
 		    local x = 0
 		    while x ~= 1 or x ~= -1 or x ~= -3 do
 						math.randomseed(GetGameTimer())
-    				Citizen.Wait(0)
+    				Citizen.Wait(5)
 				    x = math.random(-3, 1)
 		    end
 				weedCoordY = weedCoordY + x
@@ -269,5 +274,5 @@ function GetCoordZ(x, y)
 		end
 	end
 
-	return 53.8
+	return 53.7
 end
