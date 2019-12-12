@@ -192,14 +192,12 @@ function ValidateWeedCoord(plantCoord)
 		local validate = true
 
 		for k, v in pairs(weedPlants) do
-			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 2 then
+			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 3 then
 				validate = false
-				print("failed validation: too close to other plants")
 			end
 		end
 
-		if GetDistanceBetweenCoords(plantCoord, Config.CircleZones.WeedField.coords, false) > 100 then  --this was 50.  I'm actually not sure what it does.
-			print("failed validation: too far outside of zone")
+		if GetDistanceBetweenCoords(plantCoord, Config.CircleZones.WeedField.coords, false) > 50 then
 			validate = false
 		end
 
@@ -242,7 +240,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = {52.3, 52.4, 52.5, 52.6, 52.7, 52.8, 52.9, 53.0, 53.1, 53.2, 53.3, 53.4, 53.5, 53.6, 53.7, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3, 54.4, 54.5}
+	local groundCheckHeights = { 52.5, 52.6, 52.7, 52.8, 52.9, 53.0, 53.1, 53.2, 53.3, 53.4, 53.5, 53.6, 53.7, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3, 54.4, 54.5}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
