@@ -126,7 +126,7 @@ function SpawnWeedPlants()
 
 		-- altered quite a bit by Jay to make the plants grow in the plots within the outdoor weed farm
 		local weedCoords = GenerateWeedCoords()
-		local ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
+		local ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		local nilCoords = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('nothingObject'), 0, 0, 0)
 		local oldWeedCoords --, newWeedCoords
 		local weedplotCoords = {}
@@ -143,10 +143,10 @@ function SpawnWeedPlants()
 
 		  	Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 1, 0, 0)
+		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
 		ClosestWeed = nil
-		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
+		ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
 		while ClosestWeed ~= nilCoords and ClosestWeed ~= nil  do
 			  --if not IsEntityAMissionEntity(ClosestWeed) then
 					  oldWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
@@ -158,7 +158,7 @@ function SpawnWeedPlants()
 			  --end
 				Citizen.Wait(0)
 				weedCoords = GenerateWeedCoords()
-				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 1, 0, 0)
+				ClosestWeed = GetClosestObjectOfType(weedCoords, 100.0, GetHashKey('prop_weed_01'), 0, 0, 0)
 		end
 		ClosestWeed = nil
 		--local prop_weed_table = {'prop_weed_01', 'prop_weed_02'}
@@ -217,12 +217,31 @@ function GenerateWeedCoords()
 		local modX = math.random(-10, 10)
 
 		Citizen.Wait(100)
-
 		math.randomseed(GetGameTimer())
 		local modY = math.random(-2, 2)
 
 		weedCoordX = Config.CircleZones.WeedField.coords.x + modX
 		weedCoordY = Config.CircleZones.WeedField.coords.y + modY
+
+		if weedCoordY == 5576 then
+			  local x = 0
+			  while x ~= -1 or x ~= 1 or x ~= 3 do
+						math.randomseed(GetGameTimer())
+				    Citizen.Wait(0)
+					  x = math.random(-1, 3)
+			  end
+				weedCoordY = weedCoordY + x
+		end
+		if weedCoordY == 5578
+		    local x = 0
+		    while x ~= 1 or x ~= -1 or x ~= -3 do
+						math.randomseed(GetGameTimer())
+    				Citizen.Wait(0)
+				    x = math.random(-3, 1)
+		    end
+				weedCoordY = weedCoordY + x
+	  end
+
 
 		--2215 .. 2235 = 20 = 10x2
 		--5574 .. 5580 = 6 = 3x2
@@ -239,7 +258,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.77, 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
+	local groundCheckHeights = { 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
