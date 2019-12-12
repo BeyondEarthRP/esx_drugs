@@ -142,7 +142,7 @@ function SpawnWeedPlants()
 				local smallWeedCoords --[[ vector3 ]] = GetEntityCoords(ClosestWeed)
 				SetEntityAsMissionEntity(ClosestWeed, true, true)
 				ClosestWeed = DeleteEntity()
-				print("Deleted 02 at: " .. smallWeedCords)
+				print("Deleted 02 at: " .. smallWeedCoords)
 				local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
 		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 1, 0, 0)
