@@ -231,6 +231,7 @@ function GenerateWeedCoords()
 					  x = math.random(-1, 3)
 			  end
 				weedCoordY = weedCoordY + x
+				print("shifting plant " .. x)
 	  elseif weedCoordY == 5578 then
 		    local x = 0
 		    while x ~= 1 or x ~= -1 or x ~= -3 do
@@ -239,6 +240,7 @@ function GenerateWeedCoords()
 				    x = math.random(-3, 1)
 		    end
 				weedCoordY = weedCoordY + x
+				print("shifting plant " .. x)
 	  end
 
 
@@ -257,7 +259,7 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
+	local groundCheckHeights = { 53.77, 53.78, 53.79, 53.8, 53.9, 54.0, 54.1, 54.2, 54.3}
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
