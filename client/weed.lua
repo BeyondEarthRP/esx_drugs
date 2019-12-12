@@ -235,6 +235,7 @@ function GenerateWeedCoords()
 			  print("modY is 5576... fixing.")
 			  local x = 0
 			  while x ~= -1 or x ~= 1 or x ~= 3 do
+					  print("x is: " .. x)
 						math.randomseed(GetGameTimer())
 				    Citizen.Wait(5)
 					  x = math.random(-1, 3)
@@ -245,6 +246,7 @@ function GenerateWeedCoords()
 			  print("modY is 5578... fixing.")
 		    local x = 0
 		    while x ~= 1 or x ~= -1 or x ~= -3 do
+					  print("x is: " .. x)
 						math.randomseed(GetGameTimer())
     				Citizen.Wait(5)
 				    x = math.random(-3, 1)
