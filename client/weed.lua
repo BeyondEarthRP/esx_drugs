@@ -239,7 +239,16 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 52.68, 52.69, 52.70, 52.71, 52.72, 52.73, 52.74, 52.75, 52.76, 52.77, 52.78, 52.79, 52.80, 52.81, 52.82, 52.83, 52.84, 52.85, 52.86, 52.87, 52.88, 52.89, 52.90, 52.91, 52.92, 52.93, 52.94, 52.95, 52.96, 52.97, 52.98, 52.99, 53.00, 53.01, 53.02, 53.03, 53.04, 53.05 }
+	local groundCheckHeights = {}
+	local x = 52
+	local xx = 0
+	while x < 55
+			while xx < 100 do
+					table.insert(groundCheckHeights, tonumber(x .. "." .. xx))
+					xx = xx + 1
+		  end
+		  x = x + 1
+	end
 
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
