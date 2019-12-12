@@ -124,7 +124,8 @@ end)
 
 function SpawnWeedPlants()
 
-		-- added by Jay to offer some randomness to the generation of the plants
+		-- altered quite a bit by Jay to make the plants grow in the plots within the outdoor weed farm
+		local weedCoords = GenerateWeedCoords()
 		local ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		local nilCoords = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('nothingObject'), 0, 0, 0)
 		local oldWeedCoords, newWeedCoords
@@ -141,7 +142,7 @@ function SpawnWeedPlants()
 			  end
 
 		  	Citizen.Wait(0)
-				local weedCoords = GenerateWeedCoords()
+				weedCoords = GenerateWeedCoords()
 		  	ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_02'), 0, 0, 0)
 		end
 		ClosestWeed = nil
@@ -156,7 +157,7 @@ function SpawnWeedPlants()
 						print("Deleted 02 at: " .. oldWeedCoords)
 			  end
 				Citizen.Wait(0)
-				local weedCoords = GenerateWeedCoords()
+				weedCoords = GenerateWeedCoords()
 				ClosestWeed = GetClosestObjectOfType(weedCoords, 25.0, GetHashKey('prop_weed_01'), 0, 0, 0)
 		end
 		ClosestWeed = nil
@@ -168,7 +169,13 @@ function SpawnWeedPlants()
 
 		while spawnedWeeds < 25 do
 				Citizen.Wait(0)
-	    	weedCoords = weedplotCoords[keyset[math.random(#keyset)]]
+				if next(keyset) == nil then
+						weedCoords = GenerateWeedCoords()
+						print("Table was nil, generating new cords.")
+				else
+	    			weedCoords = weedplotCoords[keyset[math.random(#keyset)]]
+						print("Using weedplots to obtain coords for next weed plant.")
+				end
 				print("generating plant #" .. spawnedWeeds .. " at " .. weedCoords)
 			  ESX.Game.SpawnLocalObject('prop_weed_01', weedCoords, function(obj)
 	  			  PlaceObjectOnGroundProperly(obj)
