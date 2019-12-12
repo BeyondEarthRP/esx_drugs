@@ -242,7 +242,7 @@ function GetCoordZ(x, y)
 	local groundCheckHeights = {}
 	local x = 52
 	local xx = 0
-	while x < 55
+	while x < 55 do
 			while xx < 100 do
 					table.insert(groundCheckHeights, tonumber(x .. "." .. xx))
 					xx = xx + 1
