@@ -201,7 +201,7 @@ function ValidateWeedCoord(plantCoord)
 			validate = false
 		end
 
-		print("validation: " .. validate)
+		print("validation: " .. tostring(validate))
 		return validate
 	else
 		return true
